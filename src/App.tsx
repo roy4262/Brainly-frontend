@@ -3,6 +3,7 @@ import './App.css'
 import DashBoard from './pages/DashBoard'
 import SignIn from './pages/SignIn';
 import {SignUp} from './pages/SignUp';
+import NotFound from './pages/NotFound';
 import ProtectedRoute from './ProtectedRoute';
 
 
@@ -25,6 +26,9 @@ function App() {
 
         {/* Redirect to /dashboard if already logged in */}
         <Route path="/" element={<Navigate to="/dashboard" />} />
+        
+        {/* Catch-all route for undefined paths */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
