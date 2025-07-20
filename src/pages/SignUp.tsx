@@ -40,11 +40,11 @@ export const SignUp = () => {
   }
 
   return (
-    <div className="h-screen w-screen bg-gray-200 flex justify-center items-center">
-      <div className="bg-white rounded-md border min-w-48 p-8">
+    <div className="h-screen w-screen bg-gray-200 flex justify-center items-center p-4">
+      <div className="bg-white rounded-md border w-full max-w-md p-6 sm:p-8">
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">Sign Up</h2>
-          <p className="text-gray-600 mt-2">Create your Brainely account</p>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Sign Up</h2>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">Create your Brainely account</p>
         </div>
         
         <InputField ref={userNameRef} placeholder="Username" />
@@ -60,7 +60,7 @@ export const SignUp = () => {
         </div>
         
         <div className="text-center mt-4">
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             Already have an account?{" "}
             <button
               onClick={() => navigate("/signin")}

@@ -150,11 +150,11 @@ export const CreateContent = ({open,onClose}: CreateContentProps) => {
         {open===true && (
           <>
             {/* Backdrop overlay */}
-            <div className="w-screen h-screen bg-slate-500 fixed top-0 left-0 opacity-60"></div>
+            <div className="w-screen h-screen bg-slate-500 fixed top-0 left-0 opacity-60 z-50"></div>
             
             {/* Content modal */}
-            <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center ">
-              <div className="bg-white p-4 rounded-md shadow-lg"> 
+            <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center z-50 p-4">
+              <div className="bg-white p-4 sm:p-6 rounded-md shadow-lg w-full max-w-md max-h-full overflow-y-auto"> 
                 <div className="flex justify-end cursor-pointer"  onClick={onClose}>
                      <CrossIcon/> 
                 </div>
@@ -186,19 +186,19 @@ export const CreateContent = ({open,onClose}: CreateContentProps) => {
                 </div>
                  <div>
                             {/* <h1>Type</h1> */}
-                            <div className="flex gap-3 justify-center pb-2 flex-wrap">
+                            <div className="grid grid-cols-2 gap-2 sm:flex sm:gap-3 justify-center pb-2">
                                 <Button text="Youtube" variant={type === ContentType.Youtube ? "primary" : "secondary"} onClick={() => {
                                     setType(ContentType.Youtube)
-                                }}></Button>
+                                }} className="text-sm"></Button>
                                 <Button text="Twitter" variant={type === ContentType.Twitter ? "primary" : "secondary"} onClick={() => {
                                     setType(ContentType.Twitter)
-                                }}></Button>
+                                }} className="text-sm"></Button>
                                 <Button text="Link" variant={type === ContentType.Link ? "primary" : "secondary"} onClick={() => {
                                     setType(ContentType.Link)
-                                }}></Button>
+                                }} className="text-sm"></Button>
                                 <Button text="Document" variant={type === ContentType.Document ? "primary" : "secondary"} onClick={() => {
                                     setType(ContentType.Document)
-                                }}></Button>
+                                }} className="text-sm"></Button>
                             </div>
                         </div>
                 <div className="flex justify-center">

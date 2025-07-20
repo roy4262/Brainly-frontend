@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom"
 interface SideBarProps {
   onSelect: (type: string | null) => void;
   selected: string | null;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export const SideBar = ({ onSelect, selected }: SideBarProps) => {
+export const SideBar = ({ onSelect, selected, isOpen = false, onClose }: SideBarProps) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -18,8 +20,15 @@ export const SideBar = ({ onSelect, selected }: SideBarProps) => {
     navigate("/signin");
   };
 
+  const handleSelect = (type: string | null) => {
+    onSelect(type);
+    if (onClose) onClose(); // Close mobile sidebar after selection
+  };
+
   return (
-    <div className="h-screen bg-white border-r w-72 fixed left-0 top-0 pl-4 flex flex-col justify-between">
+    <div className={`h-screen bg-white border-r w-72 fixed left-0 top-0 pl-4 flex flex-col justify-between z-40 transform transition-transform duration-300 ease-in-out ${
+      isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+    }`}>
       <div>
         <div className="flex items-center text-3xl font-bold text-gray-900 pl-12 py-3 border-b border-gray-200">
           <img
@@ -37,7 +46,7 @@ export const SideBar = ({ onSelect, selected }: SideBarProps) => {
             icon={null}
             selected={selected === null}
             onClick={() => {
-              onSelect(null);
+              handleSelect(null);
               window.location.reload();
             }}
           />
@@ -45,31 +54,31 @@ export const SideBar = ({ onSelect, selected }: SideBarProps) => {
             text="Twitter/X"
             icon={<TwitterIcon />}
             selected={selected === "twitter"}
-            onClick={() => onSelect("twitter")}
+            onClick={() => handleSelect("twitter")}
           />
           <SideBarItem
             text="Links"
             icon={<LinkIcon />}
             selected={selected === "link"}
-            onClick={() => onSelect("link")}
+            onClick={() => handleSelect("link")}
           />
           <SideBarItem
             text="Docs"
             icon={<Docs />}
             selected={selected === "document"}
-            onClick={() => onSelect("document")}
+            onClick={() => handleSelect("document")}
           />
           <SideBarItem
             text="Youtube"
             icon={<YoutubeIcon />}
             selected={selected === "youtube"}
-            onClick={() => onSelect("youtube")}
+            onClick={() => handleSelect("youtube")}
           />
           <SideBarItem
             text="HashTags"
             icon={<HashIcon />}
             selected={selected === "hashtag"}
-            onClick={() => onSelect("hashtag")}
+            onClick={() => handleSelect("hashtag")}
           />
         </div>
       </div>

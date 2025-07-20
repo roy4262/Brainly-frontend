@@ -52,6 +52,7 @@ const DashBoard = () => {
   const contents = useContent();
   const [filterType, setFilterType] = useState<string | null>(null);
   const [isSharing, setIsSharing] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   const filteredContents = filterType 
     ? contents.filter((content) => content.type === filterType)
@@ -105,20 +106,50 @@ const DashBoard = () => {
   };
 
   return (
-    <div className="">
-      <SideBar onSelect={setFilterType} selected={filterType} />
+    <div className="relative">
+      {/* Mobile menu button */}
+      <div className="lg:hidden fixed top-4 left-4 z-50">
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="p-2 bg-white rounded-md shadow-md border"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
 
-      <div className="p-4 ml-72 min-h-screen bg-gray-100 border">
+      {/* Sidebar */}
+      <SideBar 
+        onSelect={setFilterType} 
+        selected={filterType} 
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+      />
+
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Main content */}
+      <div className="p-4 lg:ml-72 min-h-screen bg-gray-100 border">
         <CreateContent open={modelOpen} onClose={() => setModelOpen(false)} />
 
-        <div className="flex justify-between">
+        {/* Header - responsive */}
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-4 mt-12 lg:mt-0">
           <div className="text-2xl font-bold text-gray-900">My Brain</div>
-          <div className="flex justify-end gap-4">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             <Button
               onClick={() => setModelOpen(true)}
               text="Add content"
               variant="primary"
               startIcon={<PlusIcon />}
+              fullWidth={true}
+              className="sm:w-auto"
             />
             <Button
               onClick={handleShare}
@@ -126,6 +157,8 @@ const DashBoard = () => {
               variant="secondary"
               startIcon={<ShareIcon />}
               disabled={isSharing}
+              fullWidth={true}
+              className="sm:w-auto"
             />
           </div>
         </div>
@@ -136,7 +169,8 @@ const DashBoard = () => {
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 mt-6">
+        {/* Cards grid - responsive */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 mt-6">
           {(Array.isArray(filteredContents) ? filteredContents : []).map(
             ({ type, link, title, _id }) => (
               <Card
