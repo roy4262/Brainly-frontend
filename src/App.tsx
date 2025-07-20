@@ -4,6 +4,7 @@ import DashBoard from './pages/DashBoard'
 import SignIn from './pages/SignIn';
 import {SignUp} from './pages/SignUp';
 import NotFound from './pages/NotFound';
+import SharedBrain from './pages/SharedBrain';
 import ProtectedRoute from './ProtectedRoute';
 
 
@@ -23,6 +24,9 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* Public Shared Brain Route */}
+        <Route path="/brain/:shareHash" element={<SharedBrain />} />
 
         {/* Redirect to /dashboard if already logged in */}
         <Route path="/" element={<Navigate to="/dashboard" />} />

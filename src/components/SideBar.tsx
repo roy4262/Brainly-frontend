@@ -56,8 +56,8 @@ export const SideBar = ({ onSelect, selected }: SideBarProps) => {
           <SideBarItem
             text="Docs"
             icon={<Docs />}
-            selected={selected === "doc"}
-            onClick={() => onSelect("doc")}
+            selected={selected === "document"}
+            onClick={() => onSelect("document")}
           />
           <SideBarItem
             text="Youtube"

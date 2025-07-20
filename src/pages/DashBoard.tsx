@@ -14,17 +14,57 @@ import { BACKEND_URL } from "../Config";
 interface ShareLinkResponse {
   hash: string;
 }
+
+// Fallback function for copying to clipboard
+const fallbackCopyToClipboard = (text: string) => {
+  try {
+    // Create a temporary text area
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    // Try to copy using the old execCommand method
+    const successful = document.execCommand('copy');
+    document.body.removeChild(textArea);
+    
+    if (successful) {
+      
+      alert(`🎉 Share link copied to clipboard!\n\n${text}\n\nAnyone with this link can view your brain.`);
+    } else {
+      
+      // Last resort - show prompt for manual copying
+      prompt('📋 Copy this link manually (Ctrl+C):', text);
+    }
+  } catch (error) {
+    console.error('❌ Fallback copy error:', error);
+    // Last resort - show prompt for manual copying
+    prompt('📋 Copy this link manually (Ctrl+C):', text);
+  }
+};
+
 const DashBoard = () => {
   const [modelOpen, setModelOpen] = useState(false);
   const contents = useContent();
   const [filterType, setFilterType] = useState<string | null>(null);
+  const [isSharing, setIsSharing] = useState(false);
   
   const filteredContents = filterType 
     ? contents.filter((content) => content.type === filterType)
     : contents;
 
   const handleShare = async () => {
+    if (isSharing) return; // Prevent multiple clicks
+    
     try {
+      setIsSharing(true);
+      console.log('🔄 Starting brain share process...');
+      console.log('🔑 Token:', localStorage.getItem("token"));
+      
       const res = await axios.post<ShareLinkResponse>(
         `${BACKEND_URL}/brain/share`,
         { share: true },
@@ -34,12 +74,33 @@ const DashBoard = () => {
           },
         }
       );
+      
+      console.log('✅ Share API response:', res.data);
+      const shareUrl = `${window.location.origin}/brain/${res.data.hash}`;
+      console.log('🔗 Generated share URL:', shareUrl);
+      
+      // Try to copy to clipboard
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          console.log('✅ Successfully copied to clipboard');
+          alert(`${shareUrl}`);
+        } catch (clipboardError) {
+          console.error('❌ Clipboard copy failed:', clipboardError);
+          // Fallback method using a temporary text area
+          fallbackCopyToClipboard(shareUrl);
+        }
+      } else {
      
-      const shareurl= `${BACKEND_URL}/brain/${res.data.hash}`;
-      alert(`${shareurl}`);
-    } catch (err) {
-      console.error("Share failed", err);
-      alert("Something went wrong while sharing.");
+        fallbackCopyToClipboard(shareUrl);
+      }
+    } catch (err: any) {
+     
+      
+      const errorMsg = err.response?.data?.msg || "Something went wrong while sharing.";
+      alert(`❌ ${errorMsg}`);
+    } finally {
+      setIsSharing(false);
     }
   };
 
@@ -61,9 +122,10 @@ const DashBoard = () => {
             />
             <Button
               onClick={handleShare}
-              text="Share brain"
+              text={isSharing ? "Sharing..." : "Share brain"}
               variant="secondary"
               startIcon={<ShareIcon />}
+              disabled={isSharing}
             />
           </div>
         </div>
