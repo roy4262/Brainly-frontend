@@ -7,7 +7,7 @@ interface FileViewerProps {
 }
 
 export const FileViewer: React.FC<FileViewerProps> = ({ filename, title }) => {
-  const fileUrl = `${BACKEND_URL}file/${filename}`;
+  const fileUrl = `${BACKEND_URL}/file/${filename}`;
   
   return (
     <div className="w-full h-full">

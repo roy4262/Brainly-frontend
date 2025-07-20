@@ -23,8 +23,21 @@ interface CardProps{
     isSharedView?: boolean; // New prop to indicate if this is a shared view
 }
 
+// Helper function to get the correct download URL for documents
+const getDownloadUrl = (link: string, type: string) => {
+    if (type === "document") {
+        // Extract filename from the link (handle both localhost and production URLs)
+        const filename = link.split('/').pop();
+        return `${BACKEND_URL}/file/${filename}`;
+    }
+    return link;
+};
+
 export const Card=({title,link,type,contentId,isSharedView = false}:CardProps)=>{
     console.log(`🎴 Card rendering:`, { title, link, type, contentId, isSharedView });
+    
+    // Get the correct URL for downloads
+    const downloadUrl = getDownloadUrl(link, type);
     useEffect(() => {
         if (type === "twitter" && !document.querySelector('script[src="https://platform.twitter.com/widgets.js"]')) {
             const script = document.createElement('script');
@@ -80,7 +93,7 @@ const handleDeleteCard = async () => {
                 <div className="flex items-center">
                     <div className="pr-2 text-gray-500">
                         {type === "document" ? (
-                            <a href={link} download><ShareIcon/></a>
+                            <a href={downloadUrl} download><ShareIcon/></a>
                         ) : (
                             <a href={link} target="_blank" rel="noopener noreferrer"><ShareIcon/></a>
                         )}
@@ -121,7 +134,7 @@ const handleDeleteCard = async () => {
                             <Docs />
                             <p className="text-sm text-gray-600 mt-2">Document: {title}</p>
                             <a 
-                                href={link} 
+                                href={downloadUrl} 
                                 download
                                 className="mt-4 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
                             >
