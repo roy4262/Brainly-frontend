@@ -5,7 +5,8 @@ A modern, intuitive content management application that helps you organize, stor
 ## 🎯 Project Overview
 
 Brainely is a personal knowledge management system designed to be your "second brain" - a digital space where you can collect, organize, and access all your important content from various sources like YouTube videos, Twitter posts, documents, and web links.
-![Uploading Screenshot 2025-07-23 155608.png…]()
+<img width="1890" height="1072" alt="Screenshot 2025-07-23 155608" src="https://github.com/user-attachments/assets/75dfe617-a5dd-4d2f-ab5e-c50b33f1128e" />
+
 
 
 ## ✨ Key Features
