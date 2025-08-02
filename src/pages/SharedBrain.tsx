@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Card } from "../components/Card";
+import { DarkModeToggle } from "../components/DarkModeToggle";
 import { BACKEND_URL } from "../Config";
 
 interface SharedContent {
@@ -30,14 +31,10 @@ const SharedBrain = () => {
       try {
         setLoading(true);
         const response = await axios.get<SharedBrainResponse>(`${BACKEND_URL}/brain/${shareHash}`);
-        console.log('🔍 SharedBrain API Response:', response.data);
-        console.log('📋 Content received:', response.data.content);
-        console.log('📊 Content types:', response.data.content.map(item => item.type));
         setContent(response.data.content);
         setOwner(response.data.owner);
         setError("");
       } catch (err: any) {
-        console.error("Failed to fetch shared brain:", err);
         setError(err.response?.data?.msg || "Failed to load shared brain");
       } finally {
         setLoading(false);
@@ -54,55 +51,48 @@ const SharedBrain = () => {
     // ? content.filter((item) => item.type === filterType)
     // : content;
 
-  // Debug logging
-  console.log('🎯 Current filter:', filterType);
-  console.log('📦 All content:', content);
-  console.log('🔍 Filtered content:', filteredContents);
-  console.log('📊 Content breakdown:', {
-    total: content.length,
-    youtube: content.filter(item => item.type === 'youtube').length,
-    twitter: content.filter(item => item.type === 'twitter').length,
-    document: content.filter(item => item.type === 'document').length,
-    link: content.filter(item => item.type === 'link').length,
-  });
+
 
   const contentTypes = ["youtube", "twitter", "document", "link"];
   const getTypeCount = (type: string) => content.filter(item => item.type === type).length;
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="text-xl text-gray-600">Loading shared brain...</div>
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
+        <div className="text-xl text-gray-600 dark:text-gray-300 transition-colors duration-300">Loading shared brain...</div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex items-center justify-center transition-colors duration-300">
         <div className="text-center">
-          <div className="text-xl text-red-600 mb-4">❌ {error}</div>
-          <div className="text-gray-600">This shared brain link may be invalid or expired.</div>
+          <div className="text-xl text-red-600 dark:text-red-400 mb-4 transition-colors duration-300">❌ {error}</div>
+          <div className="text-gray-600 dark:text-gray-300 transition-colors duration-300">This shared brain link may be invalid or expired.</div>
         </div>
       </div>
     );
   }
 
 return (
-  <div className="min-h-screen bg-gray-100 flex flex-col">
+  <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col transition-colors duration-300">
     {/* Header */}
-    <div className="bg-white shadow-sm border-b w-full">
+    <div className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 w-full transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white transition-colors duration-300">
               🧠 {owner} Brainly
             </h1>
-            <p className="text-gray-600 mt-1">
+            <p className="text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">
               Shared knowledge collection • {content.length} items
             </p>
           </div>
-          <div className="text-sm text-gray-500">🔗 Shared Brain</div>
+          <div className="flex items-center gap-4">
+            <DarkModeToggle />
+            <div className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">🔗 Shared Brain</div>
+          </div>
         </div>
       </div>
     </div>
@@ -110,14 +100,14 @@ return (
     {/* Body with Sidebar and Main Content */}
     <div className="flex flex-1">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r h-full overflow-y-auto p-4">
+      <aside className="w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 h-full overflow-y-auto p-4 transition-colors duration-300">
         <div className="space-y-2">
           <button
             onClick={() => setFilterType(null)}
             className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
               filterType === null 
-                ? "bg-purple-100 text-purple-700 font-medium" 
-                : "text-gray-700 hover:bg-gray-100"
+                ? "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-medium" 
+                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
             }`}
           >
             📚 All Content ({content.length})
@@ -140,8 +130,8 @@ return (
                 onClick={() => setFilterType(type)}
                 className={`w-full text-left px-4 py-2 rounded-lg transition-colors ${
                   filterType === type 
-                    ? "bg-purple-100 text-purple-700 font-medium" 
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? "bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-medium" 
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
               >
                 {icons[type as keyof typeof icons]} {type.charAt(0).toUpperCase() + type.slice(1)} ({count})
@@ -157,25 +147,22 @@ return (
 
         {filterType && (
           <div className="mb-4">
-            <span className="text-sm text-gray-500">
-              Showing only: <strong className="text-purple-600">{filterType}</strong>
+            <span className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
+              Showing only: <strong className="text-purple-600 dark:text-purple-400 transition-colors duration-300">{filterType}</strong>
             </span>
           </div>
         )}
 
         {filteredContents.length === 0 ? (
           <div className="text-center py-12">
-            <div className="text-gray-500 text-lg">
+            <div className="text-gray-500 dark:text-gray-400 text-lg transition-colors duration-300">
               {filterType ? `No ${filterType} content found` : "No content shared yet"}
             </div>
-            <div className="text-xs text-gray-400 mt-2">
-              Debug: Total content: {content.length}, Filter: {filterType || 'none'}
-            </div>
+
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            {filteredContents.map((item, index) => {
-              console.log(`🎴 Rendering card ${index + 1}:`, item);
+            {filteredContents.map((item) => {
               return (
                 <Card
                   key={item._id}

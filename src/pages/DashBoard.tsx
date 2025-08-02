@@ -8,6 +8,7 @@ import { CreateContent } from "../components/CreateContent";
 import {Button} from "../components/Button";
 import {PlusIcon} from "../icons/PlusIcon";
 import {ShareIcon} from "../icons/ShareIcon";
+import { DarkModeToggle } from "../components/DarkModeToggle";
 import { BACKEND_URL } from "../Config";
 
 
@@ -41,7 +42,6 @@ const fallbackCopyToClipboard = (text: string) => {
       prompt('📋 Copy this link manually (Ctrl+C):', text);
     }
   } catch (error) {
-    console.error('❌ Fallback copy error:', error);
     // Last resort - show prompt for manual copying
     prompt('📋 Copy this link manually (Ctrl+C):', text);
   }
@@ -63,8 +63,6 @@ const DashBoard = () => {
     
     try {
       setIsSharing(true);
-      console.log('🔄 Starting brain share process...');
-      console.log('🔑 Token:', localStorage.getItem("token"));
       
       const res = await axios.post<ShareLinkResponse>(
         `${BACKEND_URL}/brain/share`,
@@ -76,23 +74,18 @@ const DashBoard = () => {
         }
       );
       
-      console.log('✅ Share API response:', res.data);
       const shareUrl = `${window.location.origin}/brain/${res.data.hash}`;
-      console.log('🔗 Generated share URL:', shareUrl);
       
       // Try to copy to clipboard
       if (navigator.clipboard && navigator.clipboard.writeText) {
         try {
           await navigator.clipboard.writeText(shareUrl);
-          console.log('✅ Successfully copied to clipboard');
           alert(`${shareUrl}`);
         } catch (clipboardError) {
-          console.error('❌ Clipboard copy failed:', clipboardError);
           // Fallback method using a temporary text area
           fallbackCopyToClipboard(shareUrl);
         }
       } else {
-     
         fallbackCopyToClipboard(shareUrl);
       }
     } catch (err: any) {
@@ -111,7 +104,7 @@ const DashBoard = () => {
       <div className="lg:hidden fixed top-4 left-4 z-50">
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="p-2 bg-white rounded-md shadow-md border"
+          className="p-2 bg-white dark:bg-gray-800 rounded-md shadow-md border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-white transition-colors duration-300"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -130,18 +123,21 @@ const DashBoard = () => {
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div 
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30"
+          className="lg:hidden fixed inset-0 bg-black dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-70 z-30 transition-colors duration-300"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Main content */}
-      <div className="p-4 lg:ml-72 min-h-screen bg-gray-100 border">
+      <div className="p-4 lg:ml-72 min-h-screen bg-gray-100 dark:bg-gray-900 border transition-colors duration-300">
         <CreateContent open={modelOpen} onClose={() => setModelOpen(false)} />
 
         {/* Header - responsive */}
         <div className="flex flex-col sm:flex-row sm:justify-between gap-4 mt-12 lg:mt-0">
-          <div className="text-2xl font-bold text-gray-900">My Brain</div>
+          <div className="flex items-center gap-4">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-300">My Brain</div>
+            <DarkModeToggle />
+          </div>
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
             <Button
               onClick={() => setModelOpen(true)}
@@ -164,7 +160,7 @@ const DashBoard = () => {
         </div>
 
         {filterType && (
-          <div className="text-sm text-gray-500 mt-2">
+          <div className="text-sm text-gray-500 dark:text-gray-400 mt-2 transition-colors duration-300">
             Showing only: <strong>{filterType}</strong>
           </div>
         )}

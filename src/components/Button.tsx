@@ -12,8 +12,8 @@ interface ButtonProps{
 }
 
 const variants={
-    "primary":"bg-purple-600 text-white",
-    "secondary":"bg-purple-200 text-purple-600"
+    "primary":"bg-purple-600 text-white hover:bg-purple-700 dark:bg-purple-500 dark:hover:bg-purple-600",
+    "secondary":"bg-purple-200 text-purple-600 hover:bg-purple-300 dark:bg-purple-800 dark:text-purple-200 dark:hover:bg-purple-700"
 }
 
 const defaultstyles="px-4 py-2 rounded-md font-light flex items-center cursor-pointer"

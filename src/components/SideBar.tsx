@@ -26,17 +26,17 @@ export const SideBar = ({ onSelect, selected, isOpen = false, onClose }: SideBar
   };
 
   return (
-    <div className={`h-screen bg-white border-r w-72 fixed left-0 top-0 pl-4 flex flex-col justify-between z-40 transform transition-transform duration-300 ease-in-out ${
+    <div className={`h-screen bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 w-72 fixed left-0 top-0 pl-4 flex flex-col justify-between z-40 transform transition-all duration-300 ease-in-out ${
       isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
     }`}>
       <div>
-        <div className="flex items-center text-3xl font-bold text-gray-900 pl-12 py-3 border-b border-gray-200">
+        <div className="flex items-center text-3xl font-bold text-gray-900 dark:text-white pl-12 py-3 border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
           <img
             width="32"
             height="32"
             src="https://img.icons8.com/ios/50/brain--v1.png"
             alt="brain--v1"
-            className="mr-3"
+            className="mr-3 dark:filter dark:invert"
           />
           Brainly
         </div>
@@ -85,7 +85,7 @@ export const SideBar = ({ onSelect, selected, isOpen = false, onClose }: SideBar
       <div className="pb-6 pl-6">
         <button
           onClick={handleLogout}
-          className=" text-red-600 text-md  hover:underline cursor-pointer"
+          className="text-red-600 dark:text-red-400 text-md hover:underline cursor-pointer transition-colors duration-300"
         >
           Logout
         </button>

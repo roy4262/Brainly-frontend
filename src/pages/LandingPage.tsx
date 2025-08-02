@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import { useEffect, useState } from "react";
+import { DarkModeToggle } from "../components/DarkModeToggle";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -29,9 +30,9 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
       {/* Navigation Header */}
-      <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+      <nav className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -41,7 +42,7 @@ const LandingPage = () => {
                 height="40"
                 src="https://img.icons8.com/ios/50/brain--v1.png"
                 alt="brain--v1"
-                className="w-8 h-8 sm:w-10 sm:h-10"
+                className="w-8 h-8 sm:w-10 sm:h-10 dark:filter dark:invert"
               />
               <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                 Brainely
@@ -50,6 +51,7 @@ const LandingPage = () => {
 
             {/* Navigation Buttons */}
             <div className="flex items-center space-x-2 sm:space-x-4">
+              <DarkModeToggle />
               {isLoggedIn ? (
                 <Button
                   onClick={handleDashboard}
@@ -83,7 +85,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
           <div className="text-center">
             {/* Main Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight transition-colors duration-300">
               Your Digital
               <span className="block bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                 Second Brain
@@ -91,7 +93,7 @@ const LandingPage = () => {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed transition-colors duration-300">
               Organize, store, and share your digital knowledge from YouTube, Twitter, documents, and web links in one beautiful, intelligent platform.
             </p>
 
@@ -117,45 +119,45 @@ const LandingPage = () => {
 
             {/* Hero Image/Demo */}
             <div className="relative max-w-5xl mx-auto">
-              <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
-                <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-colors duration-300">
+                <div className="bg-gray-50 dark:bg-gray-700 px-6 py-4 border-b border-gray-200 dark:border-gray-600 transition-colors duration-300">
                   <div className="flex items-center space-x-2">
                     <div className="w-3 h-3 bg-red-400 rounded-full"></div>
                     <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
                     <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                    <div className="ml-4 text-sm text-gray-500">brainely.app/dashboard</div>
+                    <div className="ml-4 text-sm text-gray-500 dark:text-gray-400">brainely.app/dashboard</div>
                   </div>
                 </div>
-                <div className="p-8 bg-gradient-to-br from-purple-50 to-blue-50">
+                <div className="p-8 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-700 transition-colors duration-300">
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* Sample Cards */}
-                    <div className="bg-white p-4 rounded-lg shadow-sm border">
+                    <div className="bg-white dark:bg-gray-600 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 transition-colors duration-300">
                       <div className="flex items-center mb-2">
                         <div className="w-5 h-5 bg-red-500 rounded mr-2"></div>
-                        <span className="text-sm font-medium">YouTube Video</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">YouTube Video</span>
                       </div>
-                      <div className="w-full h-20 bg-gray-200 rounded"></div>
+                      <div className="w-full h-20 bg-gray-200 dark:bg-gray-500 rounded transition-colors duration-300"></div>
                     </div>
-                    <div className="bg-white p-4 rounded-lg shadow-sm border">
+                    <div className="bg-white dark:bg-gray-600 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 transition-colors duration-300">
                       <div className="flex items-center mb-2">
                         <div className="w-5 h-5 bg-blue-500 rounded mr-2"></div>
-                        <span className="text-sm font-medium">Twitter Post</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">Twitter Post</span>
                       </div>
-                      <div className="w-full h-20 bg-gray-200 rounded"></div>
+                      <div className="w-full h-20 bg-gray-200 dark:bg-gray-500 rounded transition-colors duration-300"></div>
                     </div>
-                    <div className="bg-white p-4 rounded-lg shadow-sm border">
+                    <div className="bg-white dark:bg-gray-600 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 transition-colors duration-300">
                       <div className="flex items-center mb-2">
                         <div className="w-5 h-5 bg-green-500 rounded mr-2"></div>
-                        <span className="text-sm font-medium">Document</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">Document</span>
                       </div>
-                      <div className="w-full h-20 bg-gray-200 rounded"></div>
+                      <div className="w-full h-20 bg-gray-200 dark:bg-gray-500 rounded transition-colors duration-300"></div>
                     </div>
-                    <div className="bg-white p-4 rounded-lg shadow-sm border">
+                    <div className="bg-white dark:bg-gray-600 p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-500 transition-colors duration-300">
                       <div className="flex items-center mb-2">
                         <div className="w-5 h-5 bg-purple-500 rounded mr-2"></div>
-                        <span className="text-sm font-medium">Web Link</span>
+                        <span className="text-sm font-medium text-gray-900 dark:text-white">Web Link</span>
                       </div>
-                      <div className="w-full h-20 bg-gray-200 rounded"></div>
+                      <div className="w-full h-20 bg-gray-200 dark:bg-gray-500 rounded transition-colors duration-300"></div>
                     </div>
                   </div>
                 </div>
@@ -166,80 +168,80 @@ const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white dark:bg-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
               Why Choose Brainely?
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-colors duration-300">
               Transform your scattered digital content into an organized, searchable, and shareable knowledge base.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200">
-              <div className="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 border border-purple-200 dark:border-purple-700 transition-colors duration-300">
+              <div className="w-16 h-16 bg-purple-600 dark:bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
                 <span className="text-2xl">🧠</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Smart Organization</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Smart Organization</h3>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">
                 Automatically categorize and organize your content from multiple platforms in one unified dashboard.
               </p>
             </div>
 
             {/* Feature 2 */}
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200">
-              <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border border-blue-200 dark:border-blue-700 transition-colors duration-300">
+              <div className="w-16 h-16 bg-blue-600 dark:bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
                 <span className="text-2xl">🔗</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Multi-Platform Support</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Multi-Platform Support</h3>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">
                 Save content from YouTube, Twitter, upload documents, and bookmark web links all in one place.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-green-50 to-green-100 border border-green-200">
-              <div className="w-16 h-16 bg-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 border border-green-200 dark:border-green-700 transition-colors duration-300">
+              <div className="w-16 h-16 bg-green-600 dark:bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
                 <span className="text-2xl">🚀</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Easy Sharing</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Easy Sharing</h3>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">
                 Share your curated knowledge collections with others through secure, shareable links.
               </p>
             </div>
 
             {/* Feature 4 */}
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-yellow-50 to-yellow-100 border border-yellow-200">
-              <div className="w-16 h-16 bg-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 border border-yellow-200 dark:border-yellow-700 transition-colors duration-300">
+              <div className="w-16 h-16 bg-yellow-600 dark:bg-yellow-500 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
                 <span className="text-2xl">📱</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Responsive Design</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Responsive Design</h3>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">
                 Access your second brain from any device with our fully responsive, mobile-friendly interface.
               </p>
             </div>
 
             {/* Feature 5 */}
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-red-50 to-red-100 border border-red-200">
-              <div className="w-16 h-16 bg-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 border border-red-200 dark:border-red-700 transition-colors duration-300">
+              <div className="w-16 h-16 bg-red-600 dark:bg-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
                 <span className="text-2xl">🔒</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Secure & Private</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Secure & Private</h3>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">
                 Your data is protected with JWT authentication and secure cloud storage infrastructure.
               </p>
             </div>
 
             {/* Feature 6 */}
-            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100 border border-indigo-200">
-              <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+            <div className="text-center p-8 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100 dark:from-indigo-900/20 dark:to-indigo-800/20 border border-indigo-200 dark:border-indigo-700 transition-colors duration-300">
+              <div className="w-16 h-16 bg-indigo-600 dark:bg-indigo-500 rounded-2xl flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
                 <span className="text-2xl">⚡</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Lightning Fast</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Lightning Fast</h3>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">
                 Built with modern technologies for optimal performance and instant content loading.
               </p>
             </div>
@@ -248,13 +250,13 @@ const LandingPage = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-gray-100">
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">
               How It Works
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-colors duration-300">
               Get started with your digital second brain in just three simple steps.
             </p>
           </div>
@@ -262,33 +264,33 @@ const LandingPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 1 */}
             <div className="text-center">
-              <div className="w-20 h-20 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-purple-600 dark:bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
                 <span className="text-3xl font-bold text-white">1</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Sign Up</h3>
-              <p className="text-gray-600 text-lg">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Sign Up</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-lg transition-colors duration-300">
                 Create your free account in seconds. No credit card required, no complex setup.
               </p>
             </div>
 
             {/* Step 2 */}
             <div className="text-center">
-              <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-blue-600 dark:bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
                 <span className="text-3xl font-bold text-white">2</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Add Content</h3>
-              <p className="text-gray-600 text-lg">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Add Content</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-lg transition-colors duration-300">
                 Start adding your favorite videos, tweets, documents, and links to build your knowledge base.
               </p>
             </div>
 
             {/* Step 3 */}
             <div className="text-center">
-              <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-green-600 dark:bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors duration-300">
                 <span className="text-3xl font-bold text-white">3</span>
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Organize & Share</h3>
-              <p className="text-gray-600 text-lg">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300">Organize & Share</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-lg transition-colors duration-300">
                 Filter, organize, and share your curated content collections with the world.
               </p>
             </div>
@@ -297,12 +299,12 @@ const LandingPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-purple-600 to-blue-600">
+      <section className="py-24 bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-700 dark:to-blue-700 transition-colors duration-300">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
             Ready to Build Your Second Brain?
           </h2>
-          <p className="text-xl text-purple-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-purple-100 dark:text-purple-200 mb-8 max-w-2xl mx-auto transition-colors duration-300">
             Join thousands of knowledge enthusiasts who are already organizing their digital lives with Brainely.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -310,11 +312,11 @@ const LandingPage = () => {
               onClick={handleGetStarted}
               text={isLoggedIn ? "Go to Dashboard" : "Start Building Now"}
               variant="secondary"
-              className="text-lg px-8 py-4 bg-white text-purple-600 hover:bg-gray-50 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+              className="text-lg px-8 py-4 bg-white text-white hover:bg-gray-50 dark:bg-gray-100 dark:text-white dark:hover:bg-gray-200 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200"
               fullWidth={false}
             />
             {!isLoggedIn && (
-              <p className="text-purple-100 text-sm">
+              <p className="text-purple-100 dark:text-purple-200 text-sm transition-colors duration-300">
                 Free forever • No credit card required
               </p>
             )}
@@ -323,7 +325,7 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 dark:bg-gray-950 text-white py-12 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-3 mb-4 md:mb-0">

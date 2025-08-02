@@ -43,11 +43,11 @@ const SignIn = () => {
        }
 
   return (
-    <div className="h-screen w-screen bg-gray-200 flex justify-center items-center p-4">
-        <div className="bg-white rounded-md border w-full max-w-md p-6 sm:p-8">
+    <div className="h-screen w-screen bg-gray-200 dark:bg-gray-900 flex justify-center items-center p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-gray-800 rounded-md border border-gray-200 dark:border-gray-700 w-full max-w-md p-6 sm:p-8 transition-colors duration-300">
            <div className="text-center mb-6">
-             <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Sign In</h2>
-             <p className="text-sm sm:text-base text-gray-600 mt-2">Welcome back to Brainely</p>
+             <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">Sign In</h2>
+             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-2 transition-colors duration-300">Welcome back to Brainely</p>
            </div>
            
            <InputField ref={userNameRef} placeholder="Username"></InputField>
@@ -63,19 +63,19 @@ const SignIn = () => {
            </div>
            
            <div className="text-center mt-4 space-y-2">
-             <p className="text-sm sm:text-base text-gray-600">
+             <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 transition-colors duration-300">
                New user?{" "}
                <button
                  onClick={() => navigate("/signup")}
-                 className="text-blue-600 hover:text-blue-800 font-medium underline"
+                 className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium underline transition-colors duration-300"
                >
                  Create an account
                </button>
              </p>
-             <p className="text-sm text-gray-500">
+             <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
                <button
                  onClick={() => navigate("/")}
-                 className="text-gray-500 hover:text-gray-700 underline"
+                 className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 underline transition-colors duration-300"
                >
                  ← Back to Home
                </button>

@@ -24,6 +24,6 @@ export const useContent = () => {
         .then((res) => setContents(res.data.content))
         
     },[]);
-   //  console.log(Contents);
+
     return Contents || []; 
   }
