@@ -6,8 +6,9 @@ interface ContentItem {
     _id: string;
     title: string;
     link: string;
-    type: "twitter" | "youtube";
+    type: "twitter" | "youtube" | "document";
     contentId: string;
+    filename?: string; // For document files
 }
 
 interface ContentResponse {

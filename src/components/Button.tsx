@@ -7,7 +7,8 @@ interface ButtonProps{
     onClick?:()=> void;
     fullWidth?:boolean;
     loading?:boolean;
- 
+    disabled?:boolean;
+    className?:string;
 }
 
 const variants={
@@ -19,11 +20,12 @@ const defaultstyles="px-4 py-2 rounded-md font-light flex items-center cursor-po
 //items-center is used to align the items in center vertically
 //justify-center is used for horizontal
 
-export const Button = ({variant,text,startIcon,onClick,fullWidth,loading}:ButtonProps) =>{
+export const Button = ({variant,text,startIcon,onClick,fullWidth,loading,disabled,className}:ButtonProps) =>{
      return(
        <button 
-         onClick={onClick} 
-         className={`${variants[variant]} ${defaultstyles}${fullWidth ? " w-full justify-center" : ""}${loading ? " opacity-50 cursor-not-allowed" : ""}`} 
+         onClick={disabled ? undefined : onClick} 
+         disabled={disabled || loading}
+         className={`${variants[variant]} ${defaultstyles}${fullWidth ? " w-full justify-center" : ""}${(loading || disabled) ? " opacity-50 cursor-not-allowed" : ""} ${className || ""}`} 
       
        >
          {startIcon && (
