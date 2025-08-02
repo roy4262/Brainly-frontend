@@ -59,7 +59,7 @@ export const SignUp = () => {
           />
         </div>
         
-        <div className="text-center mt-4">
+        <div className="text-center mt-4 space-y-2">
           <p className="text-sm sm:text-base text-gray-600">
             Already have an account?{" "}
             <button
@@ -67,6 +67,14 @@ export const SignUp = () => {
               className="text-blue-600 hover:text-blue-800 font-medium underline"
             >
               Sign in here
+            </button>
+          </p>
+          <p className="text-sm text-gray-500">
+            <button
+              onClick={() => navigate("/")}
+              className="text-gray-500 hover:text-gray-700 underline"
+            >
+              ← Back to Home
             </button>
           </p>
         </div>
